@@ -1,0 +1,25 @@
+group 'hornbook'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.0.RELEASE")
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+
+}

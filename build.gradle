@@ -52,9 +52,16 @@ dependencies {
 
 }
 
+
+def putWarIntoDirPath = '/home/ubuntu/applications/hornbook/tomcat/webapps/'
+def shutdownTomcat = 'sh /home/ubuntu/applications/hornbook/tomcat/bin/shutdown.sh '
+def removeOldVersion = 'rm -rf /home/ubuntu/applications/hornbook/tomcat/webapps/hornbook'
+def startTomcat = 'sh /home/ubuntu/applications/hornbook/tomcat/bin/startup.sh'
+
 task autoDeploy(type: Copy) {
+
     from 'build/libs/hornbook-service-0.0.1-SNAPSHOT.war'
-    into '../tomcat/webapps/'
+    into putWarIntoDirPath
     include 'hornbook-service-0.0.1-SNAPSHOT.war'
     rename('hornbook-service-0.0.1-SNAPSHOT.war', 'hornbook.war')
     println('ok')
@@ -62,7 +69,7 @@ task autoDeploy(type: Copy) {
         println('last')
         def outputStream = new ByteArrayOutputStream()
         ExecResult execResult = exec {
-            commandLine "/bin/bash", "-c", "sh /Users/pwd/Library/Tomcat/apache-tomcat-9.0.0.M21/bin/shutdown.sh | rm -rf /Users/pwd/Library/Tomcat/apache-tomcat-9.0.0.M21/webapps/hornbook | sh /Users/pwd/Library/Tomcat/apache-tomcat-9.0.0.M21/bin/startup.sh"
+            commandLine "/bin/bash", "-c", shutdownTomcat + " && " + removeOldVersion + " && " + startTomcat
             standardOutput = outputStream
             errorOutput = outputStream
         }

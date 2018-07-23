@@ -1,25 +1,71 @@
-group 'hornbook'
-version '1.0-SNAPSHOT'
-
 buildscript {
+    ext {
+        springBootVersion = '2.0.3.RELEASE'
+    }
     repositories {
-        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.0.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
-}
-
-repositories {
-    jcenter()
 }
 
 apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group 'hornbook'
+version = '0.0.1-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-dependencies {
+repositories {
+    mavenCentral()
+}
 
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter')
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    testCompile("junit:junit:4.12")
+
+    compile("mysql:mysql-connector-java:8.0.11")
+    compile('io.springfox:springfox-swagger2:2.8.0')
+    compile('io.springfox:springfox-swagger-ui:2.8.0')
+    compile('io.minio:minio:4.0.2')
+
+//    compile("org.springframework.boot:spring-boot-starter-jdbc:2.0.0.RELEASE")
+//
+//    compile("org.springframework.data:spring-data-commons:2.0.0.RELEASE")
+
+    compile("org.apache.httpcomponents:httpclient:4.3.1")
+
+    compile('org.jsoup:jsoup:1.11.3')
+
+    compile 'com.alibaba:fastjson:1.2.47'
+
+}
+
+task autoDeploy(type: Copy) {
+    from 'build/libs/hornbook-service-0.0.1-SNAPSHOT.war'
+    into '../tomcat/webapps/'
+    include 'hornbook-service-0.0.1-SNAPSHOT.war'
+    rename('hornbook-service-0.0.1-SNAPSHOT.war', 'hornbook.war')
+    println('ok')
+    doLast {
+        println('last')
+        def outputStream = new ByteArrayOutputStream()
+        ExecResult execResult = exec {
+            commandLine "/bin/bash", "-c", "sh /Users/pwd/Library/Tomcat/apache-tomcat-9.0.0.M21/bin/shutdown.sh | rm -rf /Users/pwd/Library/Tomcat/apache-tomcat-9.0.0.M21/webapps/hornbook | sh /Users/pwd/Library/Tomcat/apache-tomcat-9.0.0.M21/bin/startup.sh"
+            standardOutput = outputStream
+            errorOutput = outputStream
+        }
+        println("执行结果码：" + execResult.getExitValue())
+    }
 }

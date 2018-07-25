@@ -11,74 +11,84 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "生成图片的输入参数")
 public class PainterInput {
 
-    @ApiModelProperty(value = "字体", required = true)
-    private Long ttfId;
-    @ApiModelProperty(value = "文本", required = true)
-    private String text;
-    @ApiModelProperty(value = "字号，默认22")
-    private Long size = 22L;
-    @ApiModelProperty(value = "图片的宽度")
-    private Long width;
-    @ApiModelProperty(value = "图片的高度")
-    private Long height;
-    @ApiModelProperty(value = "前景色")
-    private String foreColor;
-    @ApiModelProperty(value = "背景色")
-    private String backColor;
+    @ApiModelProperty(value = "背景色，默认透明")
+    private String background = "#00000000";
+    @ApiModelProperty(value = "前景色，默认黑色")
+    private String foreground = "#000000";
+    @ApiModelProperty(value = "字体，默认宋体")
+    private String ttf;
+    @ApiModelProperty(value = "字号，默认32.0f")
+    private float size = 32.0f;
+    private int style;
+    @ApiModelProperty(value = "宽度，默认128")
+    private int width = 128;
+    @ApiModelProperty(value = "字号，默认128")
+    private int height = 128;
+    @ApiModelProperty(value = "内容", required = true)
+    private String content;
 
-    public Long getTtfId() {
-        return ttfId;
+
+    public String getBackground() {
+        return background;
     }
 
-    public void setTtfId(Long ttfId) {
-        this.ttfId = ttfId;
+    public void setBackground(String background) {
+        this.background = background;
     }
 
-    public Long getSize() {
+    public String getForeground() {
+        return foreground;
+    }
+
+    public void setForeground(String foreground) {
+        this.foreground = foreground;
+    }
+
+    public String getTtf() {
+        return ttf;
+    }
+
+    public void setTtf(String ttf) {
+        this.ttf = ttf;
+    }
+
+    public float getSize() {
         return size;
     }
 
-    public void setSize(Long size) {
+    public void setSize(float size) {
         this.size = size;
     }
 
-    public Long getWidth() {
+    public int getStyle() {
+        return style;
+    }
+
+    public void setStyle(int style) {
+        this.style = style;
+    }
+
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(Long width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public Long getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(Long height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
-    public String getForeColor() {
-        return foreColor;
+    public String getContent() {
+        return content;
     }
 
-    public void setForeColor(String foreColor) {
-        this.foreColor = foreColor;
-    }
-
-    public String getBackColor() {
-        return backColor;
-    }
-
-    public void setBackColor(String backColor) {
-        this.backColor = backColor;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
+    public void setContent(String content) {
+        this.content = content;
     }
 }

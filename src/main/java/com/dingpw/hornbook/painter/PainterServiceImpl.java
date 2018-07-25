@@ -1,7 +1,7 @@
 package com.dingpw.hornbook.painter;
 
 import com.dingpw.hornbook.ApplicationConfigure;
-import com.dingpw.hornbook.font.IFontService;
+import com.dingpw.hornbook.utils.FileUtil;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
@@ -9,12 +9,15 @@ import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.UUID;
 import javax.imageio.ImageIO;
 import org.springframework.stereotype.Service;
 import sun.font.FontDesignMetrics;
@@ -45,7 +48,8 @@ public class PainterServiceImpl implements IPainterService {
         int[] widthAndHeight = getWidthAndHeight(font, painterEntity.getContent());// 计算文本所占宽度
         float width = widthAndHeight[0] * 1.2f;// 文本宽度
         float height = widthAndHeight[1] * 1.2f;// 文本高度
-        BufferedImage bufferedImage = new BufferedImage((int)width, (int)height, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage bufferedImage = new BufferedImage((int) width, (int) height,
+            BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = bufferedImage.createGraphics();
         graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
             RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -58,8 +62,8 @@ public class PainterServiceImpl implements IPainterService {
         float startX = (bufferedImage.getWidth() - widthAndHeight[0]) / 2;
         graphics.drawString(painterEntity.getContent(), startX, metrics.getAscent());//图片上写文字
         graphics.dispose();
-        write(bufferedImage, painterEntity.getImageUrl());
-        return painterEntity.getImageUrl();
+        String imageUrl = write(bufferedImage);
+        return imageUrl;
     }
 
     public static Font getFont(String name) {
@@ -103,6 +107,17 @@ public class PainterServiceImpl implements IPainterService {
         result[0] = maxWidth;
         result[1] = maxHeight;
         return result;
+    }
+
+    public static String write(BufferedImage bufferedImage) throws Exception {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, "PNG", byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+        String bucketName = "hornbook-painter";
+        String fileName = UUID.randomUUID().toString() + ".png";
+        FileUtil.uploadByInputStream(bucketName, fileName, byteArrayInputStream, "image/png");
+        return ApplicationConfigure.getFileDomain() + bucketName + "/" + fileName;
     }
 
     public static void write(BufferedImage bufferedImage, String target) throws IOException {

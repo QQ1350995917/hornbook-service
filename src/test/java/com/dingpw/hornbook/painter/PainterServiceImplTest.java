@@ -1,8 +1,5 @@
 package com.dingpw.hornbook.painter;
 
-import static org.junit.Assert.*;
-
-import com.dingpw.hornbook.font.FontEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +27,8 @@ public class PainterServiceImplTest {
         painterEntity.setTtf("花体英文字Annabelle.ttf");
         painterEntity.setImageUrl(outPutPath + "test.png");
         painterEntity.setContent("hello world");
-        painterService.paint(painterEntity);
+        PainterEntity paint = painterService.paint(painterEntity);
+        System.out.println(paint.getImageUrl());
     }
 
 }

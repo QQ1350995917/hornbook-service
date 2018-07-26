@@ -1,4 +1,4 @@
-package com.dingpw.hornbook.painter;
+package com.dingpw.hornbook.studio;
 
 import org.springframework.stereotype.Service;
 

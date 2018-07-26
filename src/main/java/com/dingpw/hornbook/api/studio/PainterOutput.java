@@ -1,4 +1,4 @@
-package com.dingpw.hornbook.api.painter;
+package com.dingpw.hornbook.api.studio;
 
 /**
  * TODO

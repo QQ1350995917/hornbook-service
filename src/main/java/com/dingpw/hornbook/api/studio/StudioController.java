@@ -1,18 +1,14 @@
-package com.dingpw.hornbook.api.painter;
+package com.dingpw.hornbook.api.studio;
 
 import com.dingpw.hornbook.api.ApiController;
 import com.dingpw.hornbook.api.Output;
-import com.dingpw.hornbook.client.dt.DTClient;
-import com.dingpw.hornbook.client.dt.DTPainterInput;
-import com.dingpw.hornbook.client.dt.DTPainterOutput;
-import com.dingpw.hornbook.painter.PainterEntity;
-import com.dingpw.hornbook.painter.PainterServiceImpl;
+import com.dingpw.hornbook.studio.PainterEntity;
+import com.dingpw.hornbook.studio.PainterServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author 丁朋伟@600100@18511694468 on 2018-07-05 13:58.
  */
-@Api(value = "painter", description = "画家")
+@Api(value = "studio", description = "画室接口：描述了绘制等工作")
 @RestController
-@RequestMapping("/painter")
-public class PainterController extends ApiController {
+@RequestMapping("/studio")
+public class StudioController extends ApiController {
 
     @Autowired
     private PainterServiceImpl painterService;

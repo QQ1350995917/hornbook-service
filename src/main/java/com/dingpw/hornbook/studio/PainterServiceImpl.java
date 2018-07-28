@@ -33,7 +33,7 @@ public class PainterServiceImpl implements IPainterService {
     @Override
     public PainterEntity paint(PainterEntity painterEntity) {
         try {
-            String imageUrl = this.draw(painterEntity,null);
+            String imageUrl = this.draw(painterEntity, null);
             painterEntity.setImageUrl(imageUrl);
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,9 +41,9 @@ public class PainterServiceImpl implements IPainterService {
         return painterEntity;
     }
 
-    public PainterEntity paint(PainterEntity painterEntity,String target){
+    public PainterEntity paint(PainterEntity painterEntity, String target) {
         try {
-            String imageUrl = this.draw(painterEntity,target);
+            String imageUrl = this.draw(painterEntity, target);
             painterEntity.setImageUrl(imageUrl);
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,29 +51,40 @@ public class PainterServiceImpl implements IPainterService {
         return painterEntity;
     }
 
-    private String draw(PainterEntity painterEntity,String target) throws Exception {
-        Font font = getFont(painterEntity.getFontId()).deriveFont(Font.BOLD)
-            .deriveFont(painterEntity.getSize());
+    private String draw(PainterEntity painterEntity, String target) throws Exception {
+        int imageWidth = painterEntity.getWidth();
+        int imageHeight = painterEntity.getHeight();
+        String text = painterEntity.getContent();
+        String backColor = painterEntity.getBackground();
+        String foreColor = painterEntity.getForeground();
+        String fontId = painterEntity.getFontId();
+        float size = painterEntity.getSize();
+
+        Font font = getFont(fontId).deriveFont(Font.BOLD)
+            .deriveFont(size);
         FontDesignMetrics metrics = FontDesignMetrics.getMetrics(font);
-        int[] widthAndHeight = getWidthAndHeight(font, painterEntity.getContent());// 计算文本所占宽度
-        float width = widthAndHeight[0] * 1.2f;// 文本宽度
-        float height = widthAndHeight[1] * 1.2f;// 文本高度
-        BufferedImage bufferedImage = new BufferedImage((int) width, (int) height,
+        int[] widthAndHeight = getWidthAndHeight(font, text);// 计算文本所占宽度
+        float textWidth = widthAndHeight[0] * 1.2f;// 文本宽度 使用1.2倍率处理
+        float textHeight = widthAndHeight[1] * 1.2f;// 文本高度 使用1.2倍率处理
+
+        BufferedImage bufferedImage = new BufferedImage(imageWidth, imageHeight,
             BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = bufferedImage.createGraphics();
         graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
             RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
         //设置背影为白色
-        graphics.setColor(Color.getColor(painterEntity.getBackground()));
-        graphics.fillRect(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight());
+        graphics.setColor(Color.getColor(backColor));
+        graphics.fillRect(0, 0, imageWidth, imageHeight);
         graphics.setFont(font);
-        graphics.setColor(Color.decode(painterEntity.getForeground()));
-        float startX = (bufferedImage.getWidth() - widthAndHeight[0]) / 2;
-        graphics.drawString(painterEntity.getContent(), startX, metrics.getAscent());//图片上写文字
+        graphics.setColor(Color.decode(foreColor));
+        float startX = (imageWidth - widthAndHeight[0]) / 2;
+        float startY = (imageHeight - widthAndHeight[1]) / 2;
+//        graphics.drawString(text, startX, metrics.getAscent());//图片上写文字
+        graphics.drawString(text, startX, startY);//图片上写文字
         graphics.dispose();
         if (target != null) {
-            write(bufferedImage,target);
+            write(bufferedImage, target);
             return target;
         } else {
             String imageUrl = write(bufferedImage);

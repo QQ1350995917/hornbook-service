@@ -32,6 +32,7 @@ public class StudioController extends ApiController {
         HttpServletRequest request) {
         PainterEntity painterEntityInput = new PainterEntity();
         BeanUtils.copyProperties(input, painterEntityInput);
+        painterEntityInput.setSize(input.getFontSize());
         PainterEntity paintEntityOutput = painterService.paint(painterEntityInput);
         PainterOutput painterOutput = new PainterOutput();
         BeanUtils.copyProperties(paintEntityOutput, painterOutput);

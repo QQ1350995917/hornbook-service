@@ -9,7 +9,7 @@ public class PainterEntity {
 
     private String background = "#00000000";
     private String foreground = "#000000";
-    private String ttf;
+    private String fontId;
     private float size = 32.0f;
     private int style;
     private int width = 128;
@@ -33,12 +33,12 @@ public class PainterEntity {
         this.foreground = foreground;
     }
 
-    public String getTtf() {
-        return ttf;
+    public String getFontId() {
+        return fontId;
     }
 
-    public void setTtf(String ttf) {
-        this.ttf = ttf;
+    public void setFontId(String fontId) {
+        this.fontId = fontId;
     }
 
     public float getSize() {

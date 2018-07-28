@@ -24,10 +24,11 @@ public class PainterServiceImplTest {
     @Test
     public void paint() throws Exception {
         PainterEntity painterEntity = new PainterEntity();
-        painterEntity.setTtf("花体英文字Annabelle.ttf");
-        painterEntity.setImageUrl(outPutPath + "test.png");
-        painterEntity.setContent("hello world");
-        PainterEntity paint = painterService.paint(painterEntity);
+        painterEntity.setFontId("123");
+        painterEntity.setWidth(1440);
+        painterEntity.setHeight(2393);
+        painterEntity.setContent("你好");
+        PainterEntity paint = painterService.paint(painterEntity,outPutPath + "test.png");
         System.out.println(paint.getImageUrl());
     }
 

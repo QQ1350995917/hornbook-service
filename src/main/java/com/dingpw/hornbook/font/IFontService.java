@@ -15,6 +15,8 @@ public interface IFontService {
 
     int countByTitleLike(String title);
 
+    FontEntity findById(Long id);
+
     List<FontEntity> list(int index, int size);
 
     List<FontEntity> queryByTitleLike(String title, int index, int size);

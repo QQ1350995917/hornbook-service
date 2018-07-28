@@ -1,6 +1,7 @@
 package com.dingpw.hornbook.font;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +27,12 @@ public class FontServiceImpl implements IFontService {
     @Override
     public int countByTitleLike(String title) {
         return 0;
+    }
+
+    @Override
+    public FontEntity findById(Long id) {
+        Optional<FontEntity> findById = fontDao.findById(id);
+        return findById.get();
     }
 
     @Override

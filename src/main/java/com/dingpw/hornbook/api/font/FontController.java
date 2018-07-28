@@ -1,11 +1,12 @@
 package com.dingpw.hornbook.api.font;
 
+import com.dingpw.hornbook.ApplicationConfigure;
+import com.dingpw.hornbook.api.ApiController;
 import com.dingpw.hornbook.api.Output;
 import com.dingpw.hornbook.api.PagingInput;
 import com.dingpw.hornbook.api.PagingOutput;
 import com.dingpw.hornbook.font.FontEntity;
 import com.dingpw.hornbook.font.IFontService;
-import com.dingpw.hornbook.utils.FileUtil;
 import io.swagger.annotations.Api;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @author 丁朋伟@600100@18511694468 on 2018-07-19 09:16.
  */
 
-@Api(value = "/api/font", description = "字体主体服务")
+@Api(value = "/api/font", description = "Template")
 @RestController
 @RequestMapping("/api/font")
-public class FontController {
+public class FontController extends ApiController {
 
     @Autowired
     private IFontService fontService;
@@ -47,9 +48,15 @@ public class FontController {
     }
 
     @RequestMapping(value = "/find", method = RequestMethod.GET)
-    public void findById(@RequestParam(value = "userName", required = true) String userName) {
-        System.out.println("开始查询...");
-
+    public Output<FontOutput> findById(FontFindInput input) {
+        Long id = 123L;
+        if (input.getFontId() != null) {
+            id = input.getFontId();
+        }
+        FontEntity findById = this.fontService.findById(id);
+        FontOutput fontOutput = new FontOutput();
+        BeanUtils.copyProperties(findById, fontOutput);
+        return Output.output(fontOutput);
     }
 
     @RequestMapping(value = "/query", method = RequestMethod.GET)
@@ -63,18 +70,20 @@ public class FontController {
             .list(input.getPaging().getIndex(), input.getPaging().getSize());
         int count = this.fontService.count();
 
-        List<FontVO> fontVOS = new ArrayList<>();
+        List<FontOutput> fontVOS = new ArrayList<>();
         FontListOutput fontListOutput = new FontListOutput();
         for (FontEntity fontEntity : fontEntities) {
-            FontVO fontVO = new FontVO();
-            BeanUtils.copyProperties(fontEntity, fontVO);
+            FontOutput fontOutput = new FontOutput();
+            BeanUtils.copyProperties(fontEntity, fontOutput);
             try {
-                fontVO.setThumb("http://118.89.248.92:9000/hornbook-metadata/" + fontVO.getId() + ".png");
-//                fontVO.setThumb(FileUtil.getFileUrlInMeta(fontVO.getId() + ".png"));
+                fontOutput
+                    .setThumb(
+                        ApplicationConfigure.getFileDomain() + "hornbook-metadata/" + fontOutput
+                            .getId() + ".png");
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            fontVOS.add(fontVO);
+            fontVOS.add(fontOutput);
         }
         fontListOutput.setFonts(fontVOS);
 

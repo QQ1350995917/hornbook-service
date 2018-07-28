@@ -15,7 +15,7 @@ public class FontListOutput {
     @ApiModelProperty(value = "页码信息", required = true)
     private PagingOutput paging;
     @ApiModelProperty(value = "数据信息", required = true)
-    private List<FontVO> fonts;
+    private List<FontOutput> fonts;
 
     public PagingOutput getPaging() {
         return paging;
@@ -25,11 +25,11 @@ public class FontListOutput {
         this.paging = paging;
     }
 
-    public List<FontVO> getFonts() {
+    public List<FontOutput> getFonts() {
         return fonts;
     }
 
-    public void setFonts(List<FontVO> fonts) {
+    public void setFonts(List<FontOutput> fonts) {
         this.fonts = fonts;
     }
 }

@@ -65,7 +65,8 @@ public class ApplicationConfigure {
     }
 
     public static String getFontTtfDir() {
-        return FONT_TTF_DIR;
+//        return FONT_TTF_DIR;
+        return "/Users/pwd/workspace/dingpw/hornbook-service/xresources/fontsNew/";
     }
 
     public static String getAutoDeployShell() {

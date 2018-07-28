@@ -19,16 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author 丁朋伟@600100@18511694468 on 2018-07-05 13:58.
  */
-@Api(value = "studio", description = "画室接口：描述了绘制等工作")
+@Api(value = "/api/studio", description = "Studio")
 @RestController
-@RequestMapping("/studio")
+@RequestMapping("/api/studio")
 public class StudioController extends ApiController {
 
     @Autowired
     private PainterServiceImpl painterService;
 
     @RequestMapping(value = "/paint", method = RequestMethod.POST)
-    public Output<PainterOutput> paint(@ApiParam @RequestBody PainterInput input,
+    public Output<PainterOutput> paint(@RequestBody PainterInput input,
         HttpServletRequest request) {
         PainterEntity painterEntityInput = new PainterEntity();
         BeanUtils.copyProperties(input, painterEntityInput);

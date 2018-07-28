@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author 丁朋伟@600100@18511694468 on 2018-07-19 10:04.
  */
 @ApiModel
-public class FontVO {
+public class FontOutput {
 
     @ApiModelProperty(value = "id", required = true)
     private Long id;

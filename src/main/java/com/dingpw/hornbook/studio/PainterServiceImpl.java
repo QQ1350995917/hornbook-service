@@ -33,7 +33,7 @@ public class PainterServiceImpl implements IPainterService {
     @Override
     public PainterEntity paint(PainterEntity painterEntity) {
         try {
-            String imageUrl = this.draw(painterEntity);
+            String imageUrl = this.draw(painterEntity,null);
             painterEntity.setImageUrl(imageUrl);
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,8 +41,18 @@ public class PainterServiceImpl implements IPainterService {
         return painterEntity;
     }
 
-    private String draw(PainterEntity painterEntity) throws Exception {
-        Font font = getFont(painterEntity.getTtf()).deriveFont(Font.BOLD)
+    public PainterEntity paint(PainterEntity painterEntity,String target){
+        try {
+            String imageUrl = this.draw(painterEntity,target);
+            painterEntity.setImageUrl(imageUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return painterEntity;
+    }
+
+    private String draw(PainterEntity painterEntity,String target) throws Exception {
+        Font font = getFont(painterEntity.getFontId()).deriveFont(Font.BOLD)
             .deriveFont(painterEntity.getSize());
         FontDesignMetrics metrics = FontDesignMetrics.getMetrics(font);
         int[] widthAndHeight = getWidthAndHeight(font, painterEntity.getContent());// 计算文本所占宽度
@@ -62,14 +72,19 @@ public class PainterServiceImpl implements IPainterService {
         float startX = (bufferedImage.getWidth() - widthAndHeight[0]) / 2;
         graphics.drawString(painterEntity.getContent(), startX, metrics.getAscent());//图片上写文字
         graphics.dispose();
-        String imageUrl = write(bufferedImage);
-        return imageUrl;
+        if (target != null) {
+            write(bufferedImage,target);
+            return target;
+        } else {
+            String imageUrl = write(bufferedImage);
+            return imageUrl;
+        }
     }
 
     public static Font getFont(String name) {
 //        Font font = new Font("微软雅黑", Font.BOLD, 32);
         try {
-            String fontUrl = ApplicationConfigure.getFontTtfDir() + name;
+            String fontUrl = ApplicationConfigure.getFontTtfDir() + name + ".ttf";
             InputStream is = new FileInputStream(new File(fontUrl));
             Font font = Font.createFont(Font.TRUETYPE_FONT, is);
             is.close();

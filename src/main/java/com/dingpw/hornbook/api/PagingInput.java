@@ -16,12 +16,24 @@ public class PagingInput {
     @ApiModelProperty(value = "页面容量，默认16")
     private int size = 16;
     @ApiModelProperty(value = "排序条件")
-    private int sort;
+    private int sort = 0;
     @ApiModelProperty(value = "过滤条件")
-    private int filter;
+    private int filter = 0;
+
+
+    public PagingInput(int index, int size, int sort, int filter) {
+        this.index = index;
+        this.size = size;
+        this.sort = sort;
+        this.filter = filter;
+    }
+
+    public PagingInput() {
+        super();
+    }
 
     public int getIndex() {
-        return index < 0 ? 0 : index;
+        return index;
     }
 
     public void setIndex(int index) {
@@ -29,7 +41,7 @@ public class PagingInput {
     }
 
     public int getSize() {
-        return size < 1 ? 16 : size;
+        return size;
     }
 
     public void setSize(int size) {

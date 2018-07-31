@@ -1,11 +1,10 @@
 package com.dingpw.hornbook.font;
 
-import java.util.List;
+import com.dingpw.hornbook.common.ObjectListEntity;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,11 +19,6 @@ public class FontServiceImpl implements IFontService {
     private FontDao fontDao;
 
     @Override
-    public int count() {
-        return Long.valueOf(fontDao.count()).intValue();
-    }
-
-    @Override
     public int countByTitleLike(String title) {
         return 0;
     }
@@ -36,13 +30,19 @@ public class FontServiceImpl implements IFontService {
     }
 
     @Override
-    public List<FontEntity> list(int index, int size) {
-        Page<FontEntity> all = fontDao.findAll(PageRequest.of(index,size));
-        return all.getContent();
+    public ObjectListEntity<FontEntity> list(int index, int size) {
+        Page<FontEntity> all = fontDao.findAll(PageRequest.of(index, size));
+        ObjectListEntity<FontEntity> fontEntities = new ObjectListEntity<>();
+        fontEntities.setElements(all.getContent());
+        fontEntities.setIndex(Long.parseLong(index + ""));
+        fontEntities.setPages(Long.parseLong(all.getTotalPages() + ""));
+        fontEntities.setSize(Long.parseLong(size + ""));
+        fontEntities.setTotal(all.getTotalElements());
+        return fontEntities;
     }
 
     @Override
-    public List<FontEntity> queryByTitleLike(String title, int index, int size) {
+    public ObjectListEntity<FontEntity> queryByTitleLike(String title, int index, int size) {
         return null;
     }
 }

@@ -1,5 +1,6 @@
 package com.dingpw.hornbook.font;
 
+import com.dingpw.hornbook.common.ObjectListEntity;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public interface IFontService {
 
-    int count();
-
     int countByTitleLike(String title);
 
     FontEntity findById(Long id);
 
-    List<FontEntity> list(int index, int size);
+    ObjectListEntity<FontEntity> list(int index, int size);
 
-    List<FontEntity> queryByTitleLike(String title, int index, int size);
+    ObjectListEntity<FontEntity> queryByTitleLike(String title, int index, int size);
 }

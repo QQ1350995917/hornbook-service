@@ -13,27 +13,37 @@ import org.springframework.beans.BeanUtils;
 public class PagingOutput extends PagingInput {
 
     @ApiModelProperty(value = "总页码量", required = true)
-    private int totalIndex;
+    private Long totalIndex;
     @ApiModelProperty(value = "总数据量", required = true)
-    private int totalSize;
+    private Long totalSize;
 
-    public PagingOutput(PagingInput input) {
-        BeanUtils.copyProperties(input,this);
+    public PagingOutput() {
+        super();
     }
 
-    public int getTotalIndex() {
+    public PagingOutput(PagingInput input) {
+        BeanUtils.copyProperties(input, this);
+    }
+
+    public PagingOutput(int index, int size, Long totalIndex, Long totalSize) {
+        super(index, size, 0, 0);
+        this.totalIndex = totalIndex;
+        this.totalSize = totalSize;
+    }
+
+    public Long getTotalIndex() {
         return totalIndex;
     }
 
-    public void setTotalIndex(int totalIndex) {
+    public void setTotalIndex(Long totalIndex) {
         this.totalIndex = totalIndex;
     }
 
-    public int getTotalSize() {
+    public Long getTotalSize() {
         return totalSize;
     }
 
-    public void setTotalSize(int totalSize) {
+    public void setTotalSize(Long totalSize) {
         this.totalSize = totalSize;
     }
 }

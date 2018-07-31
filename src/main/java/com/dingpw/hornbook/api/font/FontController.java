@@ -1,16 +1,21 @@
 package com.dingpw.hornbook.api.font;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dingpw.hornbook.ApplicationConfigure;
 import com.dingpw.hornbook.api.ApiController;
 import com.dingpw.hornbook.api.Output;
 import com.dingpw.hornbook.api.PagingInput;
 import com.dingpw.hornbook.api.PagingOutput;
+import com.dingpw.hornbook.common.ObjectListEntity;
+import com.dingpw.hornbook.exception.BaseException;
 import com.dingpw.hornbook.font.FontEntity;
 import com.dingpw.hornbook.font.IFontService;
 import io.swagger.annotations.Api;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,13 +71,16 @@ public class FontController extends ApiController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Output<FontListOutput> list(FontListInput input) {
-        List<FontEntity> fontEntities = this.fontService
-            .list(input.getPaging().getIndex(), input.getPaging().getSize());
-        int count = this.fontService.count();
 
-        List<FontOutput> fontVOS = new ArrayList<>();
+//        outputExceptionWithLog(200, "ok", this.getClass(), new BaseException("info"), input);
+//        outputExceptionWithLog(200, "ok", this.getClass(), new Exception("error"), input);
+
+        ObjectListEntity<FontEntity> fontEntities = this.fontService
+            .list(input.getPaging().getIndex(), input.getPaging().getSize());
+
+        List<FontOutput> fontOutputs = new ArrayList<>();
         FontListOutput fontListOutput = new FontListOutput();
-        for (FontEntity fontEntity : fontEntities) {
+        for (FontEntity fontEntity : fontEntities.getElements()) {
             FontOutput fontOutput = new FontOutput();
             BeanUtils.copyProperties(fontEntity, fontOutput);
             try {
@@ -83,22 +91,16 @@ public class FontController extends ApiController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            fontVOS.add(fontOutput);
+            fontOutputs.add(fontOutput);
         }
-        fontListOutput.setFonts(fontVOS);
+        fontListOutput.setFonts(fontOutputs);
 
         PagingInput pagingInput = input.getPaging();
 
-        boolean flag = (count % pagingInput.getSize() == 0);
-        int totalIndex;
-        if (flag) {
-            totalIndex = count / pagingInput.getSize();
-        } else {
-            totalIndex = count / pagingInput.getSize() + 1;
-        }
+
         PagingOutput pagingOutput = new PagingOutput(pagingInput);
-        pagingOutput.setTotalSize(count);
-        pagingOutput.setTotalIndex(totalIndex);
+        pagingOutput.setTotalSize(fontEntities.getTotal());
+        pagingOutput.setTotalIndex(fontEntities.getPages());
         pagingOutput.setIndex(pagingInput.getIndex());
         fontListOutput.setPaging(pagingOutput);
         return Output.output(fontListOutput);

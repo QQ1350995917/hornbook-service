@@ -27,11 +27,29 @@ repositories {
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter')
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
-    compile("org.springframework.boot:spring-boot-starter-web")
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.boot:spring-boot-starter'){
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'logback-classic', module: 'ch.qos.logback'
+
+    }
+    compile("org.springframework.boot:spring-boot-starter-data-jpa"){
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'logback-classic', module: 'ch.qos.logback'
+    }
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb"){
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'logback-classic', module: 'ch.qos.logback'
+    }
+    compile("org.springframework.boot:spring-boot-starter-web"){
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'logback-classic', module: 'ch.qos.logback'
+    }
+    compile("org.springframework.boot:spring-boot-starter-log4j2")
+    compile("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
+    testCompile('org.springframework.boot:spring-boot-starter-test'){
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'logback-classic', module: 'ch.qos.logback'
+    }
 
     testCompile("junit:junit:4.12")
 

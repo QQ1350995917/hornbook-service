@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author 丁朋伟@600100@18511694468 on 2018-07-06 22:47.
  */
 @ApiModel(description = "生成图片的输入参数")
-public class PainterInput {
+public class PaintingInput {
 
     @ApiModelProperty(value = "宽度，默认128")
     private int width = 128;
@@ -27,6 +27,8 @@ public class PainterInput {
     private float fontSize = 32.0f;
     @ApiModelProperty(hidden = true)
     private int style;
+    @ApiModelProperty(value = "字号，默认32.0f")
+    private Long userId = 0L;
     @ApiModelProperty(value = "内容", required = true)
     private String content;
 
@@ -92,6 +94,14 @@ public class PainterInput {
 
     public void setStyle(int style) {
         this.style = style;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getContent() {

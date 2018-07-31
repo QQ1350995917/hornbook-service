@@ -25,43 +25,21 @@ import sun.font.FontDesignMetrics;
 /**
  * TODO
  *
- * @author 丁朋伟@600100@18511694468 on 2018-07-24 15:37.
+ * @author 丁朋伟@600100@18511694468 on 2018-07-31 17:46. inCharge@韦宏毅@115477@13811808950
  */
-@Service
-public class PainterServiceImpl implements IPainterService {
+public class TestP {
 
-    @Override
-    public PainterEntity paint(PainterEntity painterEntity) {
-        try {
-            String imageUrl = this.draw(painterEntity, null);
-            painterEntity.setImageUrl(imageUrl);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return painterEntity;
-    }
-
-    public PainterEntity paint(PainterEntity painterEntity, String target) {
-        try {
-            String imageUrl = this.draw(painterEntity, target);
-            painterEntity.setImageUrl(imageUrl);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return painterEntity;
-    }
-
-    private String draw(PainterEntity painterEntity, String target) throws Exception {
-        int imageWidth = painterEntity.getWidth();
-        int imageHeight = painterEntity.getHeight();
-        String text = painterEntity.getContent();
-        String backColor = painterEntity.getBackground();
-        String foreColor = painterEntity.getForeground();
-        String fontId = painterEntity.getFontId();
-        float size = painterEntity.getSize();
-
-        Font font = getFont(fontId).deriveFont(Font.BOLD)
-            .deriveFont(size);
+    public String draw(String target,Font font) throws Exception {
+        int imageWidth = 144;
+        int imageHeight = 239;
+        String text = "你好qq";
+        String backColor = "#FFFFFF";
+        String foreColor = "#000000";
+        String fontId = "123";
+        float size = 32.0f;
+//        Font font = Painter.buildFont(new File( ApplicationConfigure.getFontTtfDir() + "123.ttf")).deriveFont(Font.BOLD).deriveFont(size);
+//        Font font = getFont(fontId).deriveFont(Font.BOLD)
+//            .deriveFont(size);
         FontDesignMetrics metrics = FontDesignMetrics.getMetrics(font);
         int[] widthAndHeight = getWidthAndHeight(font, text);// 计算文本所占宽度
         float textWidth = widthAndHeight[0] * 1.2f;// 文本宽度 使用1.2倍率处理
@@ -83,20 +61,17 @@ public class PainterServiceImpl implements IPainterService {
 //        graphics.drawString(text, startX, metrics.getAscent());//图片上写文字
         graphics.drawString(text, startX, startY);//图片上写文字
         graphics.dispose();
-        if (target != null) {
+
             write(bufferedImage, target);
             return target;
-        } else {
-            String imageUrl = write(bufferedImage);
-            return imageUrl;
-        }
+
     }
 
-    public static Font getFont(String name) {
+    public static Font getFont(File  name) {
 //        Font font = new Font("微软雅黑", Font.BOLD, 32);
         try {
-            String fontUrl = ApplicationConfigure.getFontTtfDir() + name + ".ttf";
-            InputStream is = new FileInputStream(new File(fontUrl));
+//            String fontUrl = ApplicationConfigure.getFontTtfDir() + name + ".ttf";
+            InputStream is = new FileInputStream(name);
             Font font = Font.createFont(Font.TRUETYPE_FONT, is);
             is.close();
             return font;
@@ -109,7 +84,6 @@ public class PainterServiceImpl implements IPainterService {
         }
         return null;
     }
-
 
     public static int[] getWidthAndHeight(Font font, String originContent) {
         int[] result = new int[]{0, 0};
@@ -135,16 +109,6 @@ public class PainterServiceImpl implements IPainterService {
         return result;
     }
 
-    public static String write(BufferedImage bufferedImage) throws Exception {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, "PNG", byteArrayOutputStream);
-        byte[] bytes = byteArrayOutputStream.toByteArray();
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-        String bucketName = "hornbook-painter";
-        String fileName = UUID.randomUUID().toString() + ".png";
-        FileUtil.uploadByInputStream(bucketName, fileName, byteArrayInputStream, "image/png");
-        return ApplicationConfigure.getFileDomain() + bucketName + "/" + fileName;
-    }
 
     public static void write(BufferedImage bufferedImage, String target) throws IOException {
         File file = new File(target);
@@ -155,4 +119,6 @@ public class PainterServiceImpl implements IPainterService {
             ImageIO.write(bufferedImage, "PNG", os);
         }
     }
+
+
 }

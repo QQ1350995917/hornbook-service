@@ -12,6 +12,7 @@ import java.util.List;
  */
 @ApiModel
 public class FontListOutput {
+
     @ApiModelProperty(value = "页码信息", required = true)
     private PagingOutput paging;
     @ApiModelProperty(value = "数据信息", required = true)

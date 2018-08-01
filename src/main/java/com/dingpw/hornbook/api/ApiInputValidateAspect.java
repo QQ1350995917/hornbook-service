@@ -33,7 +33,7 @@ public class ApiInputValidateAspect {
         .byProvider(HibernateValidator.class).configure();
     private static ValidatorFactory factory = configuration.failFast(true).buildValidatorFactory();
 
-    @Pointcut("execution(* com.dingpw.hornbook.api..*.*(..)) && !execution(* com.dingpw.hornbook.api.ApiController.*(..)) && @annotation(org.springframework.web.bind.annotation.RequestMapping)")
+    @Pointcut("execution(* com.dingpw.hornbook.api..*.*(..)) && !execution(* com.dingpw.hornbook.api.test.TestController.*(..)) && @annotation(org.springframework.web.bind.annotation.RequestMapping)")
     public void apiInputPointcut() {
     }
 

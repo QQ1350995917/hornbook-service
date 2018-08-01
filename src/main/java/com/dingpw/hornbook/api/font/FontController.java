@@ -1,13 +1,12 @@
 package com.dingpw.hornbook.api.font;
 
-import com.alibaba.fastjson.JSONObject;
 import com.dingpw.hornbook.ApplicationConfigure;
 import com.dingpw.hornbook.api.ApiController;
+import com.dingpw.hornbook.api.Meta;
 import com.dingpw.hornbook.api.Output;
 import com.dingpw.hornbook.api.PagingInput;
 import com.dingpw.hornbook.api.PagingOutput;
 import com.dingpw.hornbook.common.ObjectListEntity;
-import com.dingpw.hornbook.exception.BaseException;
 import com.dingpw.hornbook.font.FontEntity;
 import com.dingpw.hornbook.font.IFontService;
 import io.swagger.annotations.Api;
@@ -34,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/font")
 public class FontController extends ApiController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(FontController.class);
     @Autowired
     private IFontService fontService;
 
@@ -70,40 +70,39 @@ public class FontController extends ApiController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public Output<FontListOutput> list(FontListInput input) {
-
-//        outputExceptionWithLog(200, "ok", this.getClass(), new BaseException("info"), input);
-//        outputExceptionWithLog(200, "ok", this.getClass(), new Exception("error"), input);
-
-        ObjectListEntity<FontEntity> fontEntities = this.fontService
-            .list(input.getPaging().getIndex(), input.getPaging().getSize());
-
-        List<FontOutput> fontOutputs = new ArrayList<>();
-        FontListOutput fontListOutput = new FontListOutput();
-        for (FontEntity fontEntity : fontEntities.getElements()) {
-            FontOutput fontOutput = new FontOutput();
-            BeanUtils.copyProperties(fontEntity, fontOutput);
-            try {
-                fontOutput
-                    .setThumb(
-                        ApplicationConfigure.getFileDomain() + "hornbook-metadata/" + fontOutput
-                            .getId() + ".png");
-            } catch (Exception e) {
-                e.printStackTrace();
+    public void list(FontListInput input) {
+        try {
+            ObjectListEntity<FontEntity> fontEntities = this.fontService
+                .list(input.getPaging().getIndex(), input.getPaging().getSize());
+            List<FontOutput> fontOutputs = new ArrayList<>();
+            FontListOutput fontListOutput = new FontListOutput();
+            for (FontEntity fontEntity : fontEntities.getElements()) {
+                FontOutput fontOutput = new FontOutput();
+                BeanUtils.copyProperties(fontEntity, fontOutput);
+                try {
+                    fontOutput
+                        .setThumb(
+                            ApplicationConfigure.getFileDomain() + "hornbook-metadata/" + fontOutput
+                                .getId() + ".png");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                fontOutputs.add(fontOutput);
             }
-            fontOutputs.add(fontOutput);
+            fontListOutput.setFonts(fontOutputs);
+
+            PagingInput pagingInput = input.getPaging();
+
+            PagingOutput pagingOutput = new PagingOutput(pagingInput);
+            pagingOutput.setTotalSize(fontEntities.getTotal());
+            pagingOutput.setTotalIndex(fontEntities.getPages());
+            pagingOutput.setIndex(pagingInput.getIndex());
+            fontListOutput.setPaging(pagingOutput);
+            super.outputData(fontListOutput);
+        } catch (Exception e) {
+            super.outputExceptionToLog(this.getClass(), e, input);
+            super.outputException(500);
         }
-        fontListOutput.setFonts(fontOutputs);
-
-        PagingInput pagingInput = input.getPaging();
-
-
-        PagingOutput pagingOutput = new PagingOutput(pagingInput);
-        pagingOutput.setTotalSize(fontEntities.getTotal());
-        pagingOutput.setTotalIndex(fontEntities.getPages());
-        pagingOutput.setIndex(pagingInput.getIndex());
-        fontListOutput.setPaging(pagingOutput);
-        return Output.output(fontListOutput);
 
     }
 

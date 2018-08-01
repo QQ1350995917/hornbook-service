@@ -61,8 +61,8 @@ public class ApiController {
         setResponseLocal(response);
     }
 
-    public <T extends ApiController> void outputExceptionToLog(int code, String message,
-        Class<T> clazz, Exception e, Object... input) {
+    public <T extends ApiController> void outputExceptionToLog(Class<T> clazz, Exception e,
+        Object... input) {
         if (e instanceof BaseException) {
             // 如果是baseException，是手动抛出，不需要告警，只打印info日志
             LOGGER.info(String
@@ -84,6 +84,15 @@ public class ApiController {
         Meta meta = new Meta(code, message);
         Output<Object> objectOutput = new Output<>(meta, null);
         this.finalOutput(JSON.toJSONString(objectOutput));
+    }
+
+    public <T> void outputData(Meta meta, T t) {
+        Output<Object> objectOutput = new Output<>(meta, t);
+        this.finalOutput(JSON.toJSONString(objectOutput));
+    }
+
+    public <T> void outputData(T t) {
+        this.outputData(new Meta(), t);
     }
 
     private void finalOutput(String data) {
@@ -123,48 +132,5 @@ public class ApiController {
         }
 
         return bytes;
-    }
-
-    @RequestMapping(value = "/ping", method = RequestMethod.GET)
-    public Output<String> api(@RequestParam(value = "params", required = false) String input) {
-        Meta meta = new Meta();
-        if (input == null) {
-            meta.setMessage("you can request with \"params=hello-word\"");
-        }
-        return new Output<>(meta, input);
-    }
-
-    @RequestMapping(value = "/ping/get", method = RequestMethod.GET)
-    public Output<ApiInput> get(ApiInput input) {
-        Meta meta = new Meta();
-        if (input == null) {
-            meta.setMessage(
-                "you can request with \"strings=1&strings=2&anInt=4&aLong=1&string=g_222\"");
-        }
-        return new Output<>(meta, input);
-    }
-
-    @RequestMapping(value = "/ping/post", method = RequestMethod.POST)
-    public Output<ApiInput> post(@RequestParam ApiInput input) {
-        Meta meta = new Meta();
-        if (input == null) {
-            meta.setMessage(
-                "you can request with \"strings=1&strings=2&anInt=4&aLong=1&string=g_222\"");
-        }
-        return new Output<>(meta, input);
-    }
-
-    @RequestMapping(value = "/redeploy", method = RequestMethod.POST)
-    private void reploy(HttpServletRequest request) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    ShellUtil.execute(ApplicationConfigure.getAutoDeployShell());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     }
 }

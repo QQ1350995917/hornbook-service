@@ -1,4 +1,4 @@
-package com.dingpw.hornbook.api;
+package com.dingpw.hornbook.api.test;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -15,7 +15,7 @@ import javax.validation.constraints.Pattern;
  * @author 丁朋伟@600100@18511694468 on 2018-08-01 14:18.
  */
 @ApiModel
-public class ApiInput {
+public class TestInput {
 
     @ApiModelProperty(value = "测试原生类型int", required = true)
     @NotNull(message = "anInt的值的范围是3~9")

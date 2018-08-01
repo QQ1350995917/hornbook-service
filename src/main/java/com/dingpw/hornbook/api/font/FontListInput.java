@@ -3,6 +3,8 @@ package com.dingpw.hornbook.api.font;
 import com.dingpw.hornbook.api.PagingInput;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * TODO
@@ -13,6 +15,8 @@ import io.swagger.annotations.ApiModelProperty;
 public class FontListInput {
 
     @ApiModelProperty(value = "页码信息，默认值")
+    @NotNull(message = "001001001")
+    @Valid
     private PagingInput paging = new PagingInput();
 
     public PagingInput getPaging() {

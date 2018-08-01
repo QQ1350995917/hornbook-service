@@ -2,6 +2,8 @@ package com.dingpw.hornbook.api;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * TODO
@@ -11,10 +13,12 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel
 public class Meta {
 
-    @ApiModelProperty(value = "响应code")
+    @NotNull(message = "400")
+    @ApiModelProperty(value = "响应code",required = true)
     private int code = 200;
 
-    @ApiModelProperty(value = "提示信息")
+    @NotBlank(message = "400")
+    @ApiModelProperty(value = "提示信息",required = true)
     private String message = "ok";
 
 

@@ -24,7 +24,7 @@ public class PaintingEntity {
     private Long id;
     private int width = 128;
     private int height = 128;
-    private String background = "#00000000";
+    private String background = "#FFFFFF";
     private String foreground = "#000000";
     @NotNull
     private Long fontId;

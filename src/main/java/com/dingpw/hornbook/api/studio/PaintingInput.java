@@ -28,13 +28,13 @@ public class PaintingInput {
 
     @ApiModelProperty(value = "背景色，默认透明")
     @NotBlank(message = "002001005")
-    @Pattern(message = "002001006", regexp = "^(#)(\\d){6,8}")
-    private String backColor = "#00000000";
+    @Pattern(message = "002001006", regexp = "^#([A-F a-f 0-9]){6,8}$")
+    private String background = "#FFFFFF";
 
     @ApiModelProperty(value = "前景色，默认黑色")
     @NotBlank(message = "002001007")
-    @Pattern(message = "002001008", regexp = "^(#)(\\d){6,8}")
-    private String foreColor = "#000000";
+    @Pattern(message = "002001008", regexp = "^#([A-F a-f 0-9]){6,8}$")
+    private String foreground = "#000000";
 
     @ApiModelProperty(value = "字体编号", required = true)
     @NotNull(message = "002001009")
@@ -81,20 +81,20 @@ public class PaintingInput {
         this.height = height;
     }
 
-    public String getBackColor() {
-        return backColor;
+    public String getBackground() {
+        return background;
     }
 
-    public void setBackColor(String backColor) {
-        this.backColor = backColor;
+    public void setBackground(String background) {
+        this.background = background;
     }
 
-    public String getForeColor() {
-        return foreColor;
+    public String getForeground() {
+        return foreground;
     }
 
-    public void setForeColor(String foreColor) {
-        this.foreColor = foreColor;
+    public void setForeground(String foreground) {
+        this.foreground = foreground;
     }
 
     public Long getFontId() {

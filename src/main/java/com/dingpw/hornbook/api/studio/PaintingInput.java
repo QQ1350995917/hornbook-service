@@ -36,12 +36,12 @@ public class PaintingInput {
     @Pattern(message = "002001008", regexp = "^(#)(\\d){6,8}")
     private String foreColor = "#000000";
 
-    @ApiModelProperty(value = "字体编号，默认宋体")
+    @ApiModelProperty(value = "字体编号",required = true)
     @NotNull(message = "002001009")
     @Min(message = "002001010", value = 0)
     private Long fontId;
 
-    @ApiModelProperty(value = "字体名称，默认宋体")
+    @ApiModelProperty(value = "字体名称",required = true)
     @NotBlank(message = "002001011")
     private String fontName;
 
@@ -54,7 +54,7 @@ public class PaintingInput {
     @NotNull(message = "002001014")
     @Min(message = "002001015", value = 0)
     @Max(message = "002001016", value = 0)
-    private int style;
+    private int style = 0;
 
     @ApiModelProperty(value = "用户ID")
     @NotNull(message = "002001017")

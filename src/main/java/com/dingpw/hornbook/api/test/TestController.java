@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(value = "检查模板操作", description = "检查模板操作")
 @RestController
-@RequestMapping("/api/test")
+@RequestMapping("/api")
 public class TestController extends ApiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(FontController.class);
     @RequestMapping(value = "/ping", method = RequestMethod.GET)

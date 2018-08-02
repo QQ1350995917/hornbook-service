@@ -7,13 +7,13 @@
       <PatternLayout pattern="%d{yyyy.MM.dd 'at' HH:mm:ss z} %-5level %class{36} %M() @%L - %msg%n"/>
       <!--<PatternLayout pattern="%highlight{%d{yyyy.MM.dd 'at' HH:mm:ss z} %-5level %class{36} %M() @%L - %msg%n}{FATAL=Bright Red, ERROR=Bright Magenta, WARN=Bright Yellow, INFO=Bright Green, DEBUG=Bright Cyan, TRACE=Bright White}"/>-->
     </Console>
-    <File name="ERROR" fileName="logs/error.log" append="false">
+    <File name="ERROR" fileName="/home/ubuntu/logs/hornbook/error.log" append="false">
       <ThresholdFilter level="ERROR" levelMin="ERROR" levelMix="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
       <PatternLayout pattern="%d{yyyy.MM.dd 'at' HH:mm:ss z} %-5level %class{36} %M() @%L - %msg%n"/>
       <SizeBasedTriggeringPolicy size="1MB"/>
     </File>
     <!--这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
-    <RollingFile name="RollingFile" fileName="logs/app.log"
+    <RollingFile name="RollingFile" fileName="/home/ubuntu/logs/hornbook/app.log"
       filePattern="log/$${date:yyyy-MM}/app-%d{dd-HH-mm}-%i.log">
       <ThresholdFilter level="INFO" levelMin="INFO" levelMix="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
       <PatternLayout pattern="%d{yyyy.MM.dd 'at' HH:mm:ss z} %-5level %class{36} %M() @%L - %msg%n"/>

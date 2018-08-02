@@ -66,10 +66,10 @@ public class ApiController {
         if (e instanceof BaseException) {
             // 如果是baseException，是手动抛出，不需要告警，只打印info日志
             LOGGER.info(String
-                .format("服务异常，类名：%s，请求入参：%s，", clazz.getName(), JSONObject.toJSONString(input)), e);
+                .format("IntervalServerError:className:%s，requestParams:%s，", clazz.getName(), JSONObject.toJSONString(input)), e);
         } else {
             LOGGER.error(String
-                .format("服务异常，类名：%s，请求入参：%s，", clazz.getName(), JSONObject.toJSONString(input)), e);
+                .format("IntervalServerError:className:%s，requestParams:%s，", clazz.getName(), JSONObject.toJSONString(input)), e);
         }
     }
 

@@ -33,7 +33,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/font")
 public class FontController extends ApiController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FontController.class);
     @Autowired
     private IFontService fontService;
 

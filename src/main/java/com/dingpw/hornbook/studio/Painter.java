@@ -36,11 +36,22 @@ public class Painter {
         File fontTTF,
         float fontSize,
         String content) {
+        return paintToCloud(imageWidth, imageHeight, backColor, foreColor, fontTTF, fontSize,
+            new String[]{content});
+    }
+
+    public static String paintToCloud(int imageWidth,
+        int imageHeight,
+        String backColor,
+        String foreColor,
+        File fontTTF,
+        float fontSize,
+        String[] contents) {
         String bucketName = null;
         String fileName = null;
         try {
             BufferedImage bufferedImage = paint(imageWidth, imageHeight, backColor, foreColor,
-                fontTTF, fontSize, content);
+                fontTTF, fontSize, contents);
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             ImageIO.write(bufferedImage, "PNG", byteArrayOutputStream);
             byte[] bytes = byteArrayOutputStream.toByteArray();
@@ -129,7 +140,7 @@ public class Painter {
 
         int[] widthAndHeight = getWidthAndHeight(font, contents);// 计算文本所占宽度
         float startX = (imageWidth - widthAndHeight[0]) / 2;
-        float startY = (imageHeight - widthAndHeight[1]) / 2;
+        float startY = (imageHeight - widthAndHeight[1] * contents.length) / 2;
 //         graphics.drawString(contents[0], startX, FontDesignMetrics.getMetrics(font).getAscent());//图片上写文字
         for (String content : contents) {
             graphics.drawString(content, startX, startY);//图片上写文字

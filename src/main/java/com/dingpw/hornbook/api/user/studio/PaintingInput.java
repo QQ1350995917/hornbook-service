@@ -1,4 +1,4 @@
-package com.dingpw.hornbook.api.studio;
+package com.dingpw.hornbook.api.user.studio;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

@@ -19,19 +19,31 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class Swagger2 {
     @Bean
-    public Docket createRestApi() {
+    public Docket createUserApi() {
         return new Docket(DocumentationType.SWAGGER_12)
-            .apiInfo(apiInfo())
+            .groupName("userApi")
+            .apiInfo(apiInfo("userApi","userApi"))
             .select()
-            .apis(RequestHandlerSelectors.basePackage("com.dingpw.hornbook.api"))
+            .apis(RequestHandlerSelectors.basePackage("com.dingpw.hornbook.api.user"))
             .paths(PathSelectors.any())
             .build();
     }
 
-    private ApiInfo apiInfo() {
+    @Bean
+    public Docket createOfficerApi() {
+        return new Docket(DocumentationType.SWAGGER_12)
+            .groupName("officerApi")
+            .apiInfo(apiInfo("officerApi","officerApi"))
+            .select()
+            .apis(RequestHandlerSelectors.basePackage("com.dingpw.hornbook.api.officer"))
+            .paths(PathSelectors.any())
+            .build();
+    }
+
+    private ApiInfo apiInfo(String title,String description) {
         return new ApiInfoBuilder()
-            .title("springboot利用swagger构建api文档")
-            .description("简单优雅的restfun风格，")
+            .title(title)
+            .description(description)
             .termsOfServiceUrl("localhost:8080/")
             .version("1.0")
             .build();

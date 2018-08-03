@@ -4,7 +4,7 @@ import com.dingpw.hornbook.ApplicationConfigure;
 import com.dingpw.hornbook.api.ApiController;
 import com.dingpw.hornbook.api.Meta;
 import com.dingpw.hornbook.api.Output;
-import com.dingpw.hornbook.api.font.FontController;
+import com.dingpw.hornbook.api.user.font.FontController;
 import com.dingpw.hornbook.utils.ShellUtil;
 import io.swagger.annotations.Api;
 import javax.servlet.http.HttpServletRequest;

@@ -2,12 +2,9 @@ package com.dingpw.hornbook.api;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.dingpw.hornbook.ApplicationConfigure;
 import com.dingpw.hornbook.ApplicationProperties;
-import com.dingpw.hornbook.api.font.FontOutput;
 import com.dingpw.hornbook.exception.BaseException;
 import com.dingpw.hornbook.utils.GzipUtil;
-import com.dingpw.hornbook.utils.ShellUtil;
 import com.dingpw.hornbook.utils.StringUtil;
 import io.swagger.annotations.Api;
 import java.io.IOException;
@@ -18,8 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 

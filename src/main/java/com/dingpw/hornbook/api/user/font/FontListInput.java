@@ -1,4 +1,4 @@
-package com.dingpw.hornbook.api.font;
+package com.dingpw.hornbook.api.user.font;
 
 import com.dingpw.hornbook.api.PagingInput;
 import io.swagger.annotations.ApiModel;

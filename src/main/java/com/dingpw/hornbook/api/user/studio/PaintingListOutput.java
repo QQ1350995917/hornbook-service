@@ -1,4 +1,4 @@
-package com.dingpw.hornbook.api.font;
+package com.dingpw.hornbook.api.user.studio;
 
 import com.dingpw.hornbook.api.PagingOutput;
 import io.swagger.annotations.ApiModel;
@@ -8,15 +8,15 @@ import java.util.List;
 /**
  * TODO
  *
- * @author 丁朋伟@600100@18511694468 on 2018-07-19 10:01.
+ * @author 丁朋伟@600100@18511694468 on 2018-07-30 14:00.
  */
 @ApiModel
-public class FontListOutput {
+public class PaintingListOutput {
 
     @ApiModelProperty(value = "页码信息", required = true)
     private PagingOutput paging;
     @ApiModelProperty(value = "数据信息", required = true)
-    private List<FontOutput> fonts;
+    private List<PaintingOutput> paintings;
 
     public PagingOutput getPaging() {
         return paging;
@@ -26,11 +26,11 @@ public class FontListOutput {
         this.paging = paging;
     }
 
-    public List<FontOutput> getFonts() {
-        return fonts;
+    public List<PaintingOutput> getPaintings() {
+        return paintings;
     }
 
-    public void setFonts(List<FontOutput> fonts) {
-        this.fonts = fonts;
+    public void setPaintings(List<PaintingOutput> paintings) {
+        this.paintings = paintings;
     }
 }

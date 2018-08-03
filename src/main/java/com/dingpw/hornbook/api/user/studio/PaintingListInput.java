@@ -1,11 +1,10 @@
-package com.dingpw.hornbook.api.studio;
+package com.dingpw.hornbook.api.user.studio;
 
 import com.dingpw.hornbook.api.PagingInput;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**

@@ -22,7 +22,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
         enable_lazy_load_no_trans: true
-
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/hornbook?readPreference=secondaryPreferred
 swagger:
     enabled: true
     title: "xxx"

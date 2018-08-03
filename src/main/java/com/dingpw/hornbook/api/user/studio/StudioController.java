@@ -1,8 +1,9 @@
-package com.dingpw.hornbook.api.studio;
+package com.dingpw.hornbook.api.user.studio;
 
 import com.dingpw.hornbook.api.ApiController;
 import com.dingpw.hornbook.api.PagingInput;
 import com.dingpw.hornbook.api.PagingOutput;
+import com.dingpw.hornbook.api.user.UserController;
 import com.dingpw.hornbook.common.ObjectListEntity;
 import com.dingpw.hornbook.studio.PaintingEntity;
 import com.dingpw.hornbook.studio.PaintingServiceImpl;
@@ -12,6 +13,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,16 +23,16 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author 丁朋伟@600100@18511694468 on 2018-07-05 13:58.
  */
-@Api(value = "/api/studio", description = "Studio")
+@Api(value = "/api/user/studio", description = "Studio")
 @RestController
-@RequestMapping("/api/studio")
-public class StudioController extends ApiController {
+@RequestMapping("/api/user/studio")
+public class StudioController extends UserController {
 
     @Autowired
     private PaintingServiceImpl painterService;
 
-    @RequestMapping(value = "/paint", method = RequestMethod.POST)
-    public void paint(PaintingInput input) {
+    @RequestMapping(value = "/paint", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public void paint(@RequestBody PaintingInput input) {
         try {
             PaintingEntity paintingEntityInput = new PaintingEntity();
             BeanUtils.copyProperties(input, paintingEntityInput);

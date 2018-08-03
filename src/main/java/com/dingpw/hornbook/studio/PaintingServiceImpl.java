@@ -33,9 +33,11 @@ public class PaintingServiceImpl implements IPaintingService {
             File fontTTF = new File(ttfPath);
             String backColor = backColorString;
             String foreColor = foreColorString;
+
+            String[] contents = text.split("\n");
             String imageUrl = Painter
                 .paintToCloud(imageWidth, imageHeight, backColor, foreColor, fontTTF, fontSize,
-                    text);
+                    contents);
             painterEntity.setImageUrl(imageUrl);
         } catch (Exception e) {
             e.printStackTrace();

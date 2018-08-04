@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author 丁朋伟@600100@18511694468 on 2018-08-03 21:26.
  */
 @Api(value = "/api/user/feedback", description = "feedback")
-@RestController
+@RestController(value = "userFeedback")
 @RequestMapping("/api/user/feedback")
 public class FeedbackController extends UserController {
 

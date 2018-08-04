@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
-@Order(1)
+@Order(0)
 public class ApiInputValidateAspect {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApiInputValidateAspect.class);

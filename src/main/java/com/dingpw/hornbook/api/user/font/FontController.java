@@ -70,7 +70,7 @@ public class FontController extends UserController {
     public void list(FontListInput input) {
         try {
             ObjectListEntity<FontEntity> fontEntities = this.fontService
-                .list(input.getPaging().getIndex(), input.getPaging().getSize());
+                .list(input.getIndex(), input.getSize());
             List<FontOutput> fontOutputs = new ArrayList<>();
             FontListOutput fontListOutput = new FontListOutput();
             for (FontEntity fontEntity : fontEntities.getElements()) {
@@ -88,7 +88,7 @@ public class FontController extends UserController {
             }
             fontListOutput.setFonts(fontOutputs);
 
-            PagingInput pagingInput = input.getPaging();
+            PagingInput pagingInput = input;
 
             PagingOutput pagingOutput = new PagingOutput(pagingInput);
             pagingOutput.setTotalSize(fontEntities.getTotal());

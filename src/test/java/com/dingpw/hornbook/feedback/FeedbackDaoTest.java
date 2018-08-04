@@ -1,6 +1,7 @@
 package com.dingpw.hornbook.feedback;
 
 import com.dingpw.hornbook.common.ObjectListEntity;
+import java.util.UUID;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ public class FeedbackDaoTest {
     @Test
     public void add() throws Exception {
         FeedbackEntity feedbackEntity = new FeedbackEntity();
-        feedbackEntity.setId(2L);
         feedbackEntity.setType("type");
         feedbackEntity.setTitle("title");
         feedbackEntity.setContent("content");
@@ -31,15 +31,15 @@ public class FeedbackDaoTest {
         feedbackEntity.setReplyContent("replyContent");
         feedbackEntity.setPlatform("iOS:890");
         feedbackEntity.setVersion("234");
-        feedbackEntity.setStatus("0");
+        feedbackEntity.setStatus(0L);
         feedbackEntity.setCreateTime(System.currentTimeMillis());
         feedbackEntity.setUpdateTime(System.currentTimeMillis());
-        feedbackDao.add(feedbackEntity);
+        feedbackDao.insert(feedbackEntity);
     }
 
     @Test
     public void list() throws Exception {
-        ObjectListEntity<FeedbackEntity> list = feedbackDao.list(null, 1, 1);
+        ObjectListEntity<FeedbackEntity> list = feedbackDao.list(0L,0L, 1, 1);
         System.out.println(list);
     }
 }

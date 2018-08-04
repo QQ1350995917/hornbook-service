@@ -1,10 +1,15 @@
 package com.dingpw.hornbook.feedback;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.stereotype.Component;
 
 /**
  * TODO
@@ -16,7 +21,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class FeedbackEntity implements Serializable {
 
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
     @Field(value = "tp")
     private String type;
     @Field(value = "tt")
@@ -36,17 +42,17 @@ public class FeedbackEntity implements Serializable {
     @Field(value = "v")
     private String version;
     @Field(value = "s")
-    private String status;
+    private Long status;
     @Field(value = "ct")
     private Long createTime;
     @Field(value = "ut")
     private Long updateTime;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -122,11 +128,11 @@ public class FeedbackEntity implements Serializable {
         this.version = version;
     }
 
-    public String getStatus() {
+    public Long getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Long status) {
         this.status = status;
     }
 

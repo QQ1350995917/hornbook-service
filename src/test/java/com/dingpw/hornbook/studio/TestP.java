@@ -1,7 +1,5 @@
 package com.dingpw.hornbook.studio;
 
-import com.dingpw.hornbook.ApplicationConfigure;
-import com.dingpw.hornbook.utils.FileUtil;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
@@ -9,23 +7,19 @@ import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.UUID;
 import javax.imageio.ImageIO;
-import org.springframework.stereotype.Service;
 import sun.font.FontDesignMetrics;
 
 /**
  * TODO
  *
- * @author 丁朋伟@600100@18511694468 on 2018-07-31 17:46. inCharge@韦宏毅@115477@13811808950
+ * @author 丁朋伟@600100@18511694468 on 2018-07-31 17:46.
  */
 public class TestP {
 

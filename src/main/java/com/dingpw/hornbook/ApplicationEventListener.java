@@ -22,6 +22,7 @@ public class ApplicationEventListener implements ApplicationListener {
         if (event instanceof ApplicationEnvironmentPreparedEvent) {
             try {
                 ApplicationConfigure.init();
+                Thread.sleep(1000 * 30);
             } catch (Exception e) {
                 e.printStackTrace();
             }

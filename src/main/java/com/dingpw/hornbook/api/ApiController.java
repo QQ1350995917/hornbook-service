@@ -34,6 +34,10 @@ public class ApiController {
         return local == null ? "en" : local;
     }
 
+    public String getPlatform() {
+        return "Android";
+    }
+
     public static void setRequestLocal(HttpServletRequest httpServletRequest) {
         requestLocal.set(httpServletRequest);
     }
@@ -61,10 +65,12 @@ public class ApiController {
         if (e instanceof BaseException) {
             // 如果是baseException，是手动抛出，不需要告警，只打印info日志
             LOGGER.info(String
-                .format("IntervalServerError:className:%s，requestParams:%s，", clazz.getName(), JSONObject.toJSONString(input)), e);
+                .format("IntervalServerError:className:%s，requestParams:%s，", clazz.getName(),
+                    JSONObject.toJSONString(input)), e);
         } else {
             LOGGER.error(String
-                .format("IntervalServerError:className:%s，requestParams:%s，", clazz.getName(), JSONObject.toJSONString(input)), e);
+                .format("IntervalServerError:className:%s，requestParams:%s，", clazz.getName(),
+                    JSONObject.toJSONString(input)), e);
         }
     }
 
@@ -83,6 +89,11 @@ public class ApiController {
 
     public <T> void outputData(Meta meta, T t) {
         Output<Object> objectOutput = new Output<>(meta, t);
+        this.finalOutput(JSON.toJSONString(objectOutput));
+    }
+
+    public <T> void outputData(Meta meta) {
+        Output<Object> objectOutput = new Output<>(meta, null);
         this.finalOutput(JSON.toJSONString(objectOutput));
     }
 

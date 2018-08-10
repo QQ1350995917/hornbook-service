@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dingpw.hornbook.dao.user.UserDao">
+
+  <insert id="create" parameterType="com.dingpw.hornbook.dao.user.UserEntity" keyProperty="id"
+    useGeneratedKeys="true">
+    INSERT INTO user
+    (status,create_time,update_time)
+    values
+    (#{status},#{createTime},#{updateTime});
+  </insert>
+
+  <update id="seal" parameterType="com.dingpw.hornbook.dao.user.UserEntity">
+    UPDATE user
+    SET status = '0',update_time = #{updateTime}
+    WHERE id = #{id};
+  </update>
+
+  <update id="unseal" parameterType="com.dingpw.hornbook.dao.user.UserEntity">
+    UPDATE user
+    SET status = '1',update_time = #{updateTime}
+    WHERE id = #{id};
+  </update>
+
+  <update id="delete" parameterType="com.dingpw.hornbook.dao.user.UserEntity">
+    UPDATE user
+    SET status = '-1',update_time = #{updateTime}
+    WHERE id = #{id};
+  </update>
+
+</mapper>

@@ -1,7 +1,5 @@
 package com.dingpw.hornbook;
 
-import com.dingpw.hornbook.common.AutoIncrement;
-import com.dingpw.hornbook.common.AutoIncrementKey;
 import java.lang.reflect.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
@@ -49,13 +47,6 @@ public class ApplicationMongoEventListener extends AbstractMongoEventListener<Ob
      * @return 序列值
      */
     private Long getNextId(String collName) {
-        Query query = new Query(Criteria.where("collName").is(collName));
-        Update update = new Update();
-        update.inc("seqId", 1);
-        FindAndModifyOptions options = new FindAndModifyOptions();
-        options.upsert(true);
-        options.returnNew(true);
-        AutoIncrement seq = mongo.findAndModify(query, update, options, AutoIncrement.class);
-        return seq.getSeqId();
+        return 0L;
     }
 }

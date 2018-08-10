@@ -9,7 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  *
  * @author 丁朋伟@600100@18511694468 on 2018-08-04 10:22.
  */
-@ApiModel
+@ApiModel(value = "userFeedbackListInput")
 public class FeedbackListInput extends PagingInput {
 
     @ApiModelProperty(required = true)

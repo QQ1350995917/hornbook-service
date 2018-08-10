@@ -2,8 +2,8 @@ package com.dingpw.hornbook.api.user.version;
 
 import com.dingpw.hornbook.api.Meta;
 import com.dingpw.hornbook.api.user.UserController;
-import com.dingpw.hornbook.version.IVersionService;
-import com.dingpw.hornbook.version.VersionEntity;
+import com.dingpw.hornbook.business.version.IVersionService;
+import com.dingpw.hornbook.dao.version.VersionEntity;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author 丁朋伟@600100@18511694468 on 2018-08-04 08:32.
  */
 @Api(value = "/api/user/version", description = "version")
-@RestController
+@RestController(value = "userVersion")
 @RequestMapping("/api/user/version")
 public class VersionController extends UserController {
 

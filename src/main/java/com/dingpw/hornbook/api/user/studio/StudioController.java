@@ -1,12 +1,11 @@
 package com.dingpw.hornbook.api.user.studio;
 
-import com.dingpw.hornbook.api.ApiController;
 import com.dingpw.hornbook.api.PagingInput;
 import com.dingpw.hornbook.api.PagingOutput;
 import com.dingpw.hornbook.api.user.UserController;
-import com.dingpw.hornbook.common.ObjectListEntity;
-import com.dingpw.hornbook.studio.PaintingEntity;
-import com.dingpw.hornbook.studio.PaintingServiceImpl;
+import com.dingpw.hornbook.business.ObjectListEntity;
+import com.dingpw.hornbook.dao.studio.PaintingEntity;
+import com.dingpw.hornbook.business.studio.PaintingServiceImpl;
 import io.swagger.annotations.Api;
 import java.util.ArrayList;
 import java.util.List;

@@ -25,6 +25,9 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/hornbook?readPreference=secondaryPreferred
+mybatis:
+  mapper-locations: classpath:mybatis/*.xml
+  type-aliases-package: com.dingpw.hornbook.dao
 swagger:
     enabled: true
     title: "xxx"

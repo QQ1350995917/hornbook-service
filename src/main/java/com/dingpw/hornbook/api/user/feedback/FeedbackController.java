@@ -4,9 +4,9 @@ import com.dingpw.hornbook.api.ListOutput;
 import com.dingpw.hornbook.api.PagingInput;
 import com.dingpw.hornbook.api.PagingOutput;
 import com.dingpw.hornbook.api.user.UserController;
-import com.dingpw.hornbook.common.ObjectListEntity;
-import com.dingpw.hornbook.feedback.FeedbackEntity;
-import com.dingpw.hornbook.feedback.IFeedbackService;
+import com.dingpw.hornbook.business.ObjectListEntity;
+import com.dingpw.hornbook.dao.feedback.FeedbackEntity;
+import com.dingpw.hornbook.business.feedback.IFeedbackService;
 import io.swagger.annotations.Api;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author 丁朋伟@600100@18511694468 on 2018-08-03 21:26.
  */
+//@Alias("userFeedback")
 @Api(value = "/api/user/feedback", description = "feedback")
 @RestController(value = "userFeedback")
 @RequestMapping("/api/user/feedback")

@@ -1,14 +1,13 @@
 package com.dingpw.hornbook.api.user.font;
 
 import com.dingpw.hornbook.ApplicationConfigure;
-import com.dingpw.hornbook.api.ApiController;
 import com.dingpw.hornbook.api.Output;
 import com.dingpw.hornbook.api.PagingInput;
 import com.dingpw.hornbook.api.PagingOutput;
 import com.dingpw.hornbook.api.user.UserController;
-import com.dingpw.hornbook.common.ObjectListEntity;
-import com.dingpw.hornbook.font.FontEntity;
-import com.dingpw.hornbook.font.IFontService;
+import com.dingpw.hornbook.business.ObjectListEntity;
+import com.dingpw.hornbook.dao.font.FontEntity;
+import com.dingpw.hornbook.business.font.IFontService;
 import io.swagger.annotations.Api;
 import java.util.ArrayList;
 import java.util.List;

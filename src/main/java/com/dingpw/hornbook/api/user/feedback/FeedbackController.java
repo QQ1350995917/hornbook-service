@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,7 +57,7 @@ public class FeedbackController extends UserController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
-    public void add(FeedbackAddInput input) {
+    public void add(@RequestBody FeedbackAddInput input) {
         try {
             FeedbackEntity feedbackEntity = new FeedbackEntity();
             BeanUtils.copyProperties(input, feedbackEntity);

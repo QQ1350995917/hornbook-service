@@ -28,7 +28,7 @@ public class FeedbackAddInput {
     private Long userId = 0L;
     @ApiModelProperty(value = "用户名称，默认0")
     @NotBlank(message = "003001005")
-    private String userName;
+    private String userName = "Unknown";
 
     public String getType() {
         return type;

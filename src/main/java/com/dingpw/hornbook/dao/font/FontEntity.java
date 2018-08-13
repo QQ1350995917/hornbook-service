@@ -33,8 +33,8 @@ public class FontEntity implements Serializable {
     private String ttfName;
     private String summary;
     private String thumb;
-    private long createTime;
-    private long updateTime;
+    private long createTime = System.currentTimeMillis();
+    private long updateTime = System.currentTimeMillis();
 
     public FontEntity() {
         super();

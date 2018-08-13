@@ -3,6 +3,7 @@ package com.dingpw.hornbook.api.user.version;
 import com.dingpw.hornbook.api.Meta;
 import com.dingpw.hornbook.api.user.UserController;
 import com.dingpw.hornbook.business.version.IVersionService;
+import com.dingpw.hornbook.business.version.VersionServiceImpl;
 import com.dingpw.hornbook.dao.version.VersionEntity;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class VersionController extends UserController {
 
     @Autowired
-    private IVersionService versionService;
+    private VersionServiceImpl versionService;
 
     @RequestMapping(value = "/check", method = RequestMethod.GET)
-    private void check(@RequestParam(required = true) Integer code) {
+    public void check(@RequestParam(required = true) Integer code) {
         try {
             VersionEntity versionEntity = versionService
                 .checkNew(code, super.getPlatform());

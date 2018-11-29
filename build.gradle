@@ -62,10 +62,6 @@ dependencies {
         exclude group: 'logback-classic', module: 'ch.qos.logback'
     }
 
-//    compile("org.springframework.boot:spring-boot-starter-jdbc:2.0.0.RELEASE")
-//
-//    compile("org.springframework.data:spring-data-commons:2.0.0.RELEASE")
-
     compile("org.apache.httpcomponents:httpclient:4.3.1")
 
     compile('org.jsoup:jsoup:1.11.3')
